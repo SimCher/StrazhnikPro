@@ -1,0 +1,126 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="AvaloniaApplication1.MainWindow"
+        Title="{Binding WindowTitle}"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent"
+        CornerRadius="15">
+    <!-- Основная панель -->
+    <Panel>
+        <!-- Всякие штучки со стилями (можно поэкспериментировать) -->
+        <ExperimentalAcrylicBorder IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial
+                    BackgroundSource="Digger"
+                    TintColor="Black"
+                    TintOpacity="1"
+                    MaterialOpacity="0.65" />
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
+        
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                    Orientation="Vertical" Margin="5">
+            
+            <Border BorderThickness="1" BorderBrush="Gray">
+                
+                <DataGrid Name="UsersDataGrid"
+                          Items="{Binding Users}"
+                          AutoGenerateColumns="False"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Top"
+                          Foreground="#BBBBBB"
+                          HorizontalScrollBarVisibility="Disabled"
+                          RowBackground="#111111">
+                    
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Фамилия" Width="*" Binding="{Binding LastName}" />
+                        <DataGridTextColumn Header="Имя" Width="*"  Binding="{Binding FirstName}" />
+                        <DataGridTextColumn Header="Отчество" Width="*"  Binding="{Binding MiddleName}" />
+                    </DataGrid.Columns>
+                    
+                </DataGrid>
+                
+            </Border>
+            
+            <StackPanel Orientation="Horizontal">
+                
+                <Border HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CornerRadius="10" BorderThickness="1" BorderBrush="Gray" Margin="0 0 5 0">
+                    
+                    <StackPanel Orientation="Vertical">
+                        
+                        <TextBlock Text="CRUD" Foreground="#BBBBBB" FontStyle="Oblique" Margin="5 0 0 5"/>
+                        
+                        <Grid HorizontalAlignment="Center" ColumnDefinitions="Auto, Auto, Auto">
+                            <Button Grid.Column="0" Content="Добавить" Foreground="#EEEEEE" HorizontalAlignment="Stretch" Margin="5" />
+                            <Button Grid.Column="1" Content="Редактировать" Foreground="#EEEEEE" HorizontalAlignment="Stretch" Margin="5"/>
+                            <Button Grid.Column="2" Content="Удалить" Foreground="#EEEEEE" HorizontalAlignment="Stretch" Margin="5"/>
+                        </Grid>
+                        
+                    </StackPanel>
+                    
+                </Border>
+                
+                <Border HorizontalAlignment="Stretch" MinWidth="100" VerticalAlignment="Stretch" CornerRadius="10" BorderThickness="1" BorderBrush="Gray" Margin="0 0 5 0">
+                    
+                    <StackPanel Orientation="Horizontal">
+                        
+                        <TextBlock Text="Поиск" Foreground="#BBBBBB" FontStyle="Oblique" Margin="5 0 0 5"/>
+                        
+                        <Grid HorizontalAlignment="Center" ColumnDefinitions="Auto, Auto" MinWidth="100">
+                            <TextBox Background="#222222" Watermark="Введите запрос" Grid.Column="0" KeyUp="SearchTBox_OnKeyUp" MinWidth="100" MaxHeight="20" MaxLength="30" Foreground="Black"/>
+                            <StackPanel Grid.Column="1" Orientation="Vertical">
+                                <RadioButton Name="ByLNameRBtn"
+                                             Margin="2"
+                                             GroupName="SearchBy"
+                                             Click="SearchByClick"
+                                             Foreground="#EEEEEE"
+                                             IsChecked="True"
+                                             Content="По фамилии"/>
+                                <RadioButton Name="ByFNameRBtn"
+                                             Margin="2"
+                                             GroupName="SearchBy"
+                                             Click="SearchByClick"
+                                             Foreground="#EEEEEE"
+                                             Content="По имени"/>
+                                <RadioButton Name="ByMNameRBtn"
+                                             Margin="2"
+                                             GroupName="SearchBy"
+                                             Click="SearchByClick"
+                                             Foreground="#EEEEEE"
+                                             Content="По отчеству"/>
+                            </StackPanel>
+                        </Grid>
+                        
+                    </StackPanel>
+                    
+                </Border>
+                
+                <Border HorizontalAlignment="Stretch" MinWidth="100" VerticalAlignment="Stretch" CornerRadius="10" BorderThickness="1" BorderBrush="Gray" Margin="0 0 5 0">
+                    <StackPanel Orientation="Horizontal">
+                        
+                        <TextBlock Text="Фильтрация" Foreground="#BBBBBB" FontStyle="Oblique" Margin="5 0 0 5"/>
+                        <StackPanel Orientation="Vertical">
+                            <ComboBox Name="FilterCBox" SelectionChanged="FilterCBox_OnSelectionChanged">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding LastName}" Foreground="#EEEEEE" Background="#222222"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            
+                            <Button></Button>
+                        </StackPanel>
+                           
+                        </StackPanel>
+                </Border>
+                
+            </StackPanel>
+           
+        </StackPanel>
+        
+    </Panel>
+
+</Window>

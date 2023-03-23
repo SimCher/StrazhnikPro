@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="AvaloniaApplication1/App.axaml" value="AvaloniaApplication1/AvaloniaApplication1.csproj" />
+        <entry key="AvaloniaApplication1/MainWindow.axaml" value="AvaloniaApplication1/AvaloniaApplication1.csproj" />
+        <entry key="DeskTopOdin/App.axaml" value="DeskTopOdin/DeskTopOdin.csproj" />
+        <entry key="DeskTopOdin/MainWindow.axaml" value="DeskTopOdin/DeskTopOdin.csproj" />
+        <entry key="DesktopTopOdin/Views/MainWindow.axaml" value="DesktopTopOdin/DesktopTopOdin.csproj" />
+      </map>
+    </option>
+  </component>
+</project>
