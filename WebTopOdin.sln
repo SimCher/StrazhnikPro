@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTopOdin", "WebTopOdin\We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaloniaApplication1", "AvaloniaApplication1\AvaloniaApplication1.csproj", "{C34AB95B-633E-4EA3-BB0B-FE7886D3A261}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StrazhnikProAPI", "StrazhnikProAPI\StrazhnikProAPI.csproj", "{F737092F-4EB2-41FE-A8C7-D16858C6AA69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{C34AB95B-633E-4EA3-BB0B-FE7886D3A261}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C34AB95B-633E-4EA3-BB0B-FE7886D3A261}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C34AB95B-633E-4EA3-BB0B-FE7886D3A261}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F737092F-4EB2-41FE-A8C7-D16858C6AA69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F737092F-4EB2-41FE-A8C7-D16858C6AA69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F737092F-4EB2-41FE-A8C7-D16858C6AA69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F737092F-4EB2-41FE-A8C7-D16858C6AA69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

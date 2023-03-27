@@ -1,51 +1,73 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using AvaloniaApplication1.Models;
-using Microsoft.AspNetCore.SignalR.Client;
+using Newtonsoft.Json;
 
 namespace AvaloniaApplication1.Services;
 
 //Служебный класс, связывающий приложение с API
 public class ApiService
 {
-    //объект для подключения к API
-    private HubConnection _hub;
-    
-    //указываем IP-адрес API с сссылкой на хаб
-    private readonly string _ip = @"http://127.0.0.1:5253/hub";
-    
-    public bool IsConnected => _hub is {State: HubConnectionState.Connected};
+    //1. Создаём объект типа HttpClient, который будет связываться с API
+    private HttpClient _httpClient;
+
+    //
+    private readonly string _ip = "http://127.0.0.1:5291/";
+    private readonly string _usersPath = "users";
+    private readonly string _usersAddPath = "users/add";
+    private readonly string _usersUpdPath = "users/update/";
+    private readonly string _usersDeletePath = "users/delete/";
 
     public ApiService()
     {
-        InitializeServer(_ip);
+        _httpClient = new HttpClient();
     }
-
-    public async Task ConnectAsync()
-    {
-        if (IsConnected) return;
-        
-        //подключение к API
-        await _hub.StartAsync();
-    }
+    
+    public IEnumerable<User>? Users { get; private set; }
 
     public async Task<IEnumerable<User>> GetUsersAsync()
     {
-        await ConnectAsync();
+        var response = await _httpClient.GetAsync($"{_ip}{_usersPath}");
+
+        if (response.IsSuccessStatusCode)
+        {
+            var jsonString = await response.Content.ReadAsStringAsync();
+            Users = JsonConvert.DeserializeObject<IEnumerable<User>>(jsonString);
+        }
         
-        //Все методы, которые ты создала в API вызываем через InvokeAsync и в скобках строкой указываем
-        //название метода, которое ты указала в API-приложении
-        var users = await _hub.InvokeAsync<IEnumerable<User>>("GetUsers");
-        
-        
-        return users;
+        return Users;
     }
 
-    private void InitializeServer(string ip)
+    public User GetUserById(int id)
     {
-        //Обязательный метод для инициализации подключения
-        _hub = new HubConnectionBuilder()
-            .WithUrl(ip)
-            .Build();
+        return Users.First(u => u.Id == id);
     }
+
+    public async Task AddUserAsync(User user)
+    {
+        var json = JsonConvert.SerializeObject(user);
+        var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.PostAsync($"{_ip}{_usersAddPath}", data);
+    }
+
+    public async Task UpdateUserAsync(User user)
+    {
+        var json = JsonConvert.SerializeObject(user);
+        var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.PutAsync($"{_ip}{_usersUpdPath}{user.Id}", data);
+    }
+
+    public async Task DeleteUserAsync(int id)
+    {
+        var response = await _httpClient.DeleteAsync($"{_ip}{_usersDeletePath}{id}");
+    }
+    
+    
 }

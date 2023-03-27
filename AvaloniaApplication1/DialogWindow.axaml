@@ -1,0 +1,16 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="250" d:DesignHeight="200"
+        CornerRadius="15"
+        x:Class="AvaloniaApplication1.DialogWindow">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="{Binding Question}" TextWrapping="Wrap"
+                           TextAlignment="Center" Margin="0 5 0 5"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button Click="Yes_OnClick" HorizontalContentAlignment="Center" Content="Да" Width="50" HorizontalAlignment="Left" Margin="0 15 10 0"/>
+                    <Button Click="No_OnClick" HorizontalContentAlignment="Center" Content="Нет" Width="50" HorizontalAlignment="Left" Margin="10 15 0 0"/>
+                </StackPanel>
+        </StackPanel>
+</Window>

@@ -26,7 +26,7 @@ public partial class MainWindow : Window
     
     
 
-    private UserService _userService;
+    private ApiService _apiService;
     public MainWindow()
     {
         InitializeComponent();
@@ -36,9 +36,9 @@ public partial class MainWindow : Window
 
     protected override async void OnOpened(EventArgs e)
     {
-        _userService = new UserService();
-        await _userService.Initialize();
-        RefreshData(_userService.Users);
+        _apiService = new ApiService();
+        var users = await _apiService.GetUsersAsync();
+        RefreshData(users);
         FilterCBox.Items = Users;
     }
 
@@ -48,24 +48,59 @@ public partial class MainWindow : Window
         UsersDataGrid.Items = Users;
     }
 
+    private async void AddButton_Click(object? sender, RoutedEventArgs e)
+    {
+        var newUser = new User();
+        var addWindow = new AddUserWindow(_apiService, newUser);
+        await addWindow.ShowDialog(this);
+        var users = await _apiService.GetUsersAsync();
+        RefreshData(users);
+    }
+
+    private async void UpdButton_Click(object? sender, RoutedEventArgs e)
+    {
+        var button = sender as Button;
+        
+        if (button?.DataContext is User user)
+        {
+            var addWindow = new AddUserWindow(_apiService, user);
+            await addWindow.ShowDialog(this);
+            var users = await _apiService.GetUsersAsync();
+            RefreshData(users);
+        }
+    }
+
+    private async void DeleteBtn_Click(object? sender, RoutedEventArgs e)
+    {
+        var button = sender as Button;
+
+        if (button?.DataContext is User user)
+        {
+            var messageWindow = new DialogWindow(_apiService, user);
+            await messageWindow.ShowDialog(this);
+            var users = await _apiService.GetUsersAsync();
+            RefreshData(users);
+        }
+    }
+
     private void SearchTBox_OnKeyUp(object? sender, KeyEventArgs e)
     {
         IEnumerable<User> searchUsers = null;
         
         if (sender is TextBox tBox)
         {
-            switch (_searchBy)
-            {
-                case SearchBy.FirstName:
-                    searchUsers = _userService.GetUsersWithFirstNameLike(tBox.Text);
-                    break;
-                case SearchBy.LastName:
-                    searchUsers = _userService.GetUsersWithLastNameLike(tBox.Text);
-                    break;
-                case SearchBy.MiddleName:
-                    searchUsers = _userService.GetUsersWithMiddleNameLike(tBox.Text);
-                    break;
-            }
+            // switch (_searchBy)
+            // {
+            //     case SearchBy.FirstName:
+            //         searchUsers = _apiService.GetUsersWithFirstNameLike(tBox.Text);
+            //         break;
+            //     case SearchBy.LastName:
+            //         searchUsers = _apiService.GetUsersWithLastNameLike(tBox.Text);
+            //         break;
+            //     case SearchBy.MiddleName:
+            //         searchUsers = _apiService.GetUsersWithMiddleNameLike(tBox.Text);
+            //         break;
+            // }
 
             if (searchUsers != null)
             {
@@ -97,7 +132,14 @@ public partial class MainWindow : Window
 
     private void FilterCBox_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
-        var usersWithLastNameLike = _userService.GetUsersWithLastNameLike(FilterCBox.SelectedItem?.ToString());
-        RefreshData(usersWithLastNameLike);
+        // var usersWithLastNameLike = _apiService.GetUsersWithLastNameLike(FilterCBox.SelectedItem?.ToString());
+        // RefreshData(usersWithLastNameLike);
+    }
+
+    private void UsersDataGrid_OnCellPointerPressed(object? sender, DataGridCellPointerPressedEventArgs e)
+    {
+        var dGrid = sender as DataGrid;
+        var item = dGrid?.SelectedItem as User;
+        ClickedUserIdTBlock.Text = item?.Id.ToString();
     }
 }

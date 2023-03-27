@@ -25,6 +25,16 @@ public class UserService
         Users = users.ToList();
     }
 
+    public async Task AddUserAsync(User user)
+    {
+        await _api.AddUserAsync(user);
+    }
+
+    public User? GetUserById(int id)
+    {
+        return Users.FirstOrDefault(u => u.Id == id);
+    }
+
     public IEnumerable<User> GetUsersWithLastNameLike(string query)
     {
         if (string.IsNullOrEmpty(query)) return Users;

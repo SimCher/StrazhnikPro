@@ -22,7 +22,7 @@
         </ExperimentalAcrylicBorder>
         
         <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                    Orientation="Vertical" Margin="5">
+                    Orientation="Vertical" Margin="5" MinHeight="400">
             
             <Border BorderThickness="1" BorderBrush="Gray">
                 
@@ -31,14 +31,28 @@
                           AutoGenerateColumns="False"
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Top"
+                          MinHeight="400"
                           Foreground="#BBBBBB"
                           HorizontalScrollBarVisibility="Disabled"
-                          RowBackground="#111111">
+                          RowBackground="#111111"
+                          VerticalScrollBarVisibility="Visible"
+                          CellPointerPressed="UsersDataGrid_OnCellPointerPressed">
                     
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Фамилия" Width="*" Binding="{Binding LastName}" />
                         <DataGridTextColumn Header="Имя" Width="*"  Binding="{Binding FirstName}" />
                         <DataGridTextColumn Header="Отчество" Width="*"  Binding="{Binding MiddleName}" />
+                        <DataGridTemplateColumn Header="Действие" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Click="UpdButton_Click" Margin="0 0 2 0" Content="Изменить" Width="100" Foreground="#FFFFFF"/>
+                                        <Button Click="DeleteBtn_Click" Margin="0 0 2 0" Content="Удалить" Width="100" Foreground="#FFFFFF"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                          
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
                     
                 </DataGrid>
@@ -54,7 +68,7 @@
                         <TextBlock Text="CRUD" Foreground="#BBBBBB" FontStyle="Oblique" Margin="5 0 0 5"/>
                         
                         <Grid HorizontalAlignment="Center" ColumnDefinitions="Auto, Auto, Auto">
-                            <Button Grid.Column="0" Content="Добавить" Foreground="#EEEEEE" HorizontalAlignment="Stretch" Margin="5" />
+                            <Button Grid.Column="0" Content="Добавить" Click="AddButton_Click" Foreground="#EEEEEE" HorizontalAlignment="Stretch" Margin="5" />
                             <Button Grid.Column="1" Content="Редактировать" Foreground="#EEEEEE" HorizontalAlignment="Stretch" Margin="5"/>
                             <Button Grid.Column="2" Content="Удалить" Foreground="#EEEEEE" HorizontalAlignment="Stretch" Margin="5"/>
                         </Grid>
@@ -70,8 +84,13 @@
                         <TextBlock Text="Поиск" Foreground="#BBBBBB" FontStyle="Oblique" Margin="5 0 0 5"/>
                         
                         <Grid HorizontalAlignment="Center" ColumnDefinitions="Auto, Auto" MinWidth="100">
-                            <TextBox Background="#222222" Watermark="Введите запрос" Grid.Column="0" KeyUp="SearchTBox_OnKeyUp" MinWidth="100" MaxHeight="20" MaxLength="30" Foreground="Black"/>
+
+                            <TextBox Background="#222222" Watermark="Введите запрос" Grid.Column="0" 
+                                     KeyUp="SearchTBox_OnKeyUp" MinWidth="100" MaxHeight="20" MaxLength="30" 
+                                     Foreground="Black"/>
+                                     
                             <StackPanel Grid.Column="1" Orientation="Vertical">
+                                <TextBlock Name="ClickedUserIdTBlock" Text="Click the cell!"/>
                                 <RadioButton Name="ByLNameRBtn"
                                              Margin="2"
                                              GroupName="SearchBy"
@@ -101,6 +120,8 @@
                 <Border HorizontalAlignment="Stretch" MinWidth="100" VerticalAlignment="Stretch" CornerRadius="10" BorderThickness="1" BorderBrush="Gray" Margin="0 0 5 0">
                     <StackPanel Orientation="Horizontal">
                         
+                        <TextBlock Text="{Binding}">
+                        </TextBlock>
                         <TextBlock Text="Фильтрация" Foreground="#BBBBBB" FontStyle="Oblique" Margin="5 0 0 5"/>
                         <StackPanel Orientation="Vertical">
                             <ComboBox Name="FilterCBox" SelectionChanged="FilterCBox_OnSelectionChanged">
