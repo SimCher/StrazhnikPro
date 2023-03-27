@@ -1,7 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTopOdin", "WebTopOdin\WebTopOdin.csproj", "{BDE3766F-6845-4867-AB13-B50266372A82}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaloniaApplication1", "AvaloniaApplication1\AvaloniaApplication1.csproj", "{C34AB95B-633E-4EA3-BB0B-FE7886D3A261}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StrazhnikProAPI", "StrazhnikProAPI\StrazhnikProAPI.csproj", "{F737092F-4EB2-41FE-A8C7-D16858C6AA69}"
@@ -12,10 +10,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BDE3766F-6845-4867-AB13-B50266372A82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BDE3766F-6845-4867-AB13-B50266372A82}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BDE3766F-6845-4867-AB13-B50266372A82}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BDE3766F-6845-4867-AB13-B50266372A82}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C34AB95B-633E-4EA3-BB0B-FE7886D3A261}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C34AB95B-633E-4EA3-BB0B-FE7886D3A261}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C34AB95B-633E-4EA3-BB0B-FE7886D3A261}.Release|Any CPU.ActiveCfg = Release|Any CPU
