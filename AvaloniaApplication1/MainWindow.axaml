@@ -35,8 +35,7 @@
                           Foreground="#BBBBBB"
                           HorizontalScrollBarVisibility="Disabled"
                           RowBackground="#111111"
-                          VerticalScrollBarVisibility="Visible"
-                          CellPointerPressed="UsersDataGrid_OnCellPointerPressed">
+                          VerticalScrollBarVisibility="Visible">
                     
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Фамилия" Width="*" Binding="{Binding LastName}" />
